@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.google.ksp)
+    alias(libs.plugins.hilt.android)
 }
 
 android {
@@ -48,18 +49,29 @@ ksp {
 }
 
 dependencies {
+    // App Functions Feature set
+    implementation(libs.appfunctions)
+    implementation(libs.appfunctions.service)
+    implementation(libs.wear.input)
+    implementation(libs.appcompat)
+    ksp(libs.appfunctions.compiler)
+
     // Compose
     implementation(platform(libs.compose.bom))
     implementation(libs.activity.compose)
 
     // Wear-specific
+    implementation(libs.horologist.compose.layout)
     implementation(libs.wear.compose.material3)
     implementation(libs.wear.compose.navigation)
+    implementation(libs.wear.compose.ui.tooling)
 
-    // App Functions Feature set
-    implementation(libs.appfunctions)
-    implementation(libs.appfunctions.service)
-    ksp(libs.appfunctions.compiler)
+    // Data & DI
+    implementation(libs.datastore)
+    implementation(libs.datastore.preferences)
+    implementation(libs.hilt.android)
+    implementation(libs.hilt.navigation.compose)
+    ksp(libs.hilt.compiler)
 
     // Testing
     androidTestImplementation(platform(libs.compose.bom))
