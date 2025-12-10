@@ -26,6 +26,7 @@ import androidx.wear.compose.material3.Text
 import androidx.wear.compose.material3.rememberRevealState
 import androidx.wear.compose.ui.tooling.preview.WearPreviewLargeRound
 import androidx.wear.input.RemoteInputIntentHelper
+import com.example.appfunctions.data.Note
 import com.example.appfunctions.ui.components.*
 import com.example.appfunctions.ui.viewmodel.NotesViewModel
 import com.google.android.horologist.compose.layout.rememberResponsiveColumnPadding
@@ -41,7 +42,7 @@ fun NotesListHeader() {
 }
 
 @Composable
-fun NoteButton(columnState: TransformingLazyColumnState, noteContent: String) {
+fun NoteButton(columnState: TransformingLazyColumnState, noteContent: Note) {
     val revealState = rememberRevealState()
     val coroutineScope = rememberCoroutineScope()
 
@@ -70,7 +71,7 @@ fun NoteButton(columnState: TransformingLazyColumnState, noteContent: String) {
             },
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text(text = noteContent, maxLines = 1)
+            Text(text = noteContent.content, maxLines = 1)
         }
     }
 }
@@ -141,7 +142,7 @@ fun NotesListPreview() {
 @Composable
 fun NoteButtonPreview() {
     CenteredBoxPreview {
-        NoteButton(rememberTransformingLazyColumnState(), "john")
+        NoteButton(rememberTransformingLazyColumnState(), Note("john"))
     }
 }
 

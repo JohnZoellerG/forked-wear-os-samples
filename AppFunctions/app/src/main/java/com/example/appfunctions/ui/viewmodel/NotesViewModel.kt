@@ -2,6 +2,7 @@ package com.example.appfunctions.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.appfunctions.data.Note
 import com.example.appfunctions.data.NotesRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
@@ -15,7 +16,7 @@ class NotesViewModel @Inject constructor(
     private val notesRepository: NotesRepository
 ) : ViewModel() {
 
-    val notes: StateFlow<Set<String>> = notesRepository.notes
+    val notes: StateFlow<Set<Note>> = notesRepository.notes
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5000),

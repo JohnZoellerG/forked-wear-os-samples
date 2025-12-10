@@ -12,11 +12,15 @@ class NotesRepository @Inject constructor(
     @ApplicationContext context: Context) {
     private val notesPreferences = NotesPreferences(context)
 
-    val notes: Flow<Set<String>> = notesPreferences.notesFlow
+    val notes: Flow<Set<Note>> = notesPreferences.notesFlow
 
     suspend fun addNote(note: String) {
         val currentNotes = notes.first()
-        // The '+' operator on a Set creates a new Set with the element added
-        notesPreferences.saveNotes(currentNotes + note)
+        notesPreferences.saveNotes(currentNotes + Note(note))
+    }
+
+    suspend fun getLastNote(): Note {
+        val currentNotes =  notes.first()
+        return Note(currentNotes.last().content)
     }
 }
